@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset>
+
+    <exclude-pattern>src/App/Migration</exclude-pattern>
+    <exclude-pattern>src/App/Kernel.php</exclude-pattern>
+
+    <rule ref="rulesets/cleancode.xml">
+        <exclude name="StaticAccess"/>
+    </rule>
+    <rule ref="rulesets/controversial.xml"/>
+    <rule ref="rulesets/design.xml">
+    </rule>
+    <rule ref="rulesets/naming.xml">
+        <exclude name="ShortVariable"/>
+        <exclude name="ShortMethodName"/>
+    </rule>
+    <rule ref="rulesets/unusedcode.xml"/>
+    <rule ref="rulesets/naming.xml/ShortVariable">
+        <properties>
+            <property name="minimum" description="Minimum length for a variable, property or parameter name" value="2"/>
+        </properties>
+    </rule>
+    <rule ref="rulesets/naming.xml/ShortMethodName">
+        <properties>
+            <property name="minimum" description="Minimum length for a method or function name" value="2"/>
+        </properties>
+    </rule>
+
+</ruleset>

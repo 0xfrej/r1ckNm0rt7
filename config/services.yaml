@@ -1,0 +1,67 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    App\Event\ExceptionResponseListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
+
+    serializer.normalizer.object_normalizer:
+        class: Symfony\Component\Serializer\Normalizer\ObjectNormalizer
+        public: false
+        tags:
+            - { name: serializer.normalizer, priority: -10 }
+
+    Symfony\Component\Serializer\Normalizer\DateTimeNormalizer:
+        arguments:
+            $defaultContext:
+                datetime_format: 'Y-m-d\TH:i:s.v\Z'
+
+    App\Service\RickAndMortyApi\IRickAndMortyFacade: '@App\Service\RickAndMortyApi\RickAndMortyFacade'
+
+    rick_and_morty.adapter:
+        class: App\Infrastructure\ApiClient\AdapterInterface
+        factory: ['@App\Factory\RickAndMortyApiFactory', 'createAdapter']
+    rick_and_morty.request_factory:
+        class: App\Infrastructure\ApiClient\Request\IRequestFactory
+        factory: [ '@App\Factory\RickAndMortyApiFactory', 'createRequestFactory' ]
+        arguments: [ '%env(RICK_AND_MORTY_BASE_URL)%' ]
+
+    App\Service\RickAndMortyApi\ApiClient\Contract\CharacterContract:
+        class: App\Service\RickAndMortyApi\ApiClient\Character
+        bind:
+            App\Infrastructure\ApiClient\AdapterInterface: '@rick_and_morty.adapter'
+            App\Infrastructure\ApiClient\Request\IRequestFactory: '@rick_and_morty.request_factory'
+
+    App\Service\RickAndMortyApi\ApiClient\Contract\EpisodeContract:
+        class: App\Service\RickAndMortyApi\ApiClient\Episode
+        bind:
+            App\Infrastructure\ApiClient\AdapterInterface: '@rick_and_morty.adapter'
+            App\Infrastructure\ApiClient\Request\IRequestFactory: '@rick_and_morty.request_factory'
+
+    App\Service\RickAndMortyApi\ApiClient\Contract\LocationContract:
+        class: App\Service\RickAndMortyApi\ApiClient\Location
+        bind:
+            App\Infrastructure\ApiClient\AdapterInterface: '@rick_and_morty.adapter'
+            App\Infrastructure\ApiClient\Request\IRequestFactory: '@rick_and_morty.request_factory'

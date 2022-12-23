@@ -7,14 +7,14 @@ namespace App\Infrastructure\ApiClient\Response;
 /**
  * Interface for responses containing data
  *
- * @template T
+ * @template T of object|array<object>
  */
-interface IDataResponse
+interface IDataResponse extends IResponse
 {
     /**
      * Get data from response
      *
      * @psalm-return T
      */
-    public function getResponseData(): object|array;
+    public function getResponseData(): mixed;
 }

@@ -7,8 +7,9 @@ namespace App\Infrastructure\ApiClient\DataTransformer;
 /**
  * Used to transform data from A to B
  *
- * @template A
- * @template B
+ * @template A of mixed
+ * @template B of mixed
+ * @template C of mixed
  */
 interface IDataTransformer
 {
@@ -19,13 +20,13 @@ interface IDataTransformer
      * @psalm-return B
      * @throws \App\Infrastructure\ApiClient\Exception\TransformationException
      */
-    public function transform(string $val): void;
+    public function transform(mixed $val): mixed;
 
     /**
      * Transforms list of A to list of B
      *
      * @psalm-param array<A> $valList
-     * @psalm-return array<B>
+     * @psalm-return array<C>
      * @throws \App\Infrastructure\ApiClient\Exception\TransformationException
      */
     public function transformList(array $valList): array;

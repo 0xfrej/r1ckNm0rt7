@@ -16,10 +16,14 @@ class BaseController extends AbstractController
 
     /**
      * @param array<string>          $groups
-     * @param array                  $headers
+     * @param array<string, string>  $headers
      */
-    protected function jsonResponse(ApiResult $data, array $groups, int $status = 200, array $headers = []): JsonResponse
-    {
+    protected function jsonResponse(
+        ApiResult $data,
+        array $groups,
+        int $status = 200,
+        array $headers = []
+    ): JsonResponse {
         $contextBuilder = (new ObjectNormalizerContextBuilder())
             ->withGroups(array_merge(['response'], $groups))
             ->withPreserveEmptyObjects(true);

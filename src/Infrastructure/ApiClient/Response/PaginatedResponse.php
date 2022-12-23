@@ -7,8 +7,9 @@ namespace App\Infrastructure\ApiClient\Response;
 use App\Infrastructure\ApiClient\Pagination\IPagination;
 
 /**
- * @template T
- * @extends IPaginatedResponse<T>
+ * @template T of object
+ * @extends DataResponse<array<T>>
+ * @implements IPaginatedResponse<T>
  */
 class PaginatedResponse extends DataResponse implements IPaginatedResponse
 {

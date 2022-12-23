@@ -18,7 +18,7 @@ interface IDataMapper
      * @psalm-param A $entity
      * @psalm-return T
      * @throws \App\Infrastructure\ApiClient\Exception\MappingException
-     * @throws \App\Infrastructure\ApiClient\Exception\TransformationException may be thrown in transformer the mapper is using
+     * @throws \App\Infrastructure\ApiClient\Exception\TransformationException thrown in transformer the mapper is using
      */
     public function mapOne(array $entity): object;
 
@@ -28,7 +28,7 @@ interface IDataMapper
      * @psalm-param A $entities
      * @psalm-return array<T>
      * @throws \App\Infrastructure\ApiClient\Exception\MappingException
-     * @throws \App\Infrastructure\ApiClient\Exception\TransformationException may be thrown in transformer the mapper is using
+     * @throws \App\Infrastructure\ApiClient\Exception\TransformationException thrown in transformer the mapper is using
      */
     public function mapMany(array $entities): array;
 }

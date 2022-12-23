@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Service\RickAndMortyApi\ApiClient\Contract;
 
 use App\Infrastructure\ApiClient\Response\IDataResponse;
-use App\Infrastructure\ApiClient\Response\IResponse;
+use App\Infrastructure\Dto\Character;
 
 interface CharacterContract
 {
@@ -14,17 +14,17 @@ interface CharacterContract
     /**
      * Get character by ID
      *
-     * @psalm-return IResponse|IDataResponse<Character>
+     * @psalm-return IDataResponse<Character>
      * @throws \App\Service\RickAndMortyApi\ApiClient\Exception\CharacterNotFoundException
      * @throws \App\Infrastructure\ApiClient\Exception\ApiClientException
      */
-    public function getById(int $id): IResponse|IDataResponse;
+    public function getById(int $id): IDataResponse;
 
     /**
      * Get multiple characters by ID
      *
-     * @psalm-return IResponse|IDataResponse<array<Character>>
+     * @psalm-return IDataResponse<array<Character>>
      * @throws \App\Infrastructure\ApiClient\Exception\ApiClientException
      */
-    public function getByMultipleIds(int ...$id): IResponse|IDataResponse;
+    public function getByMultipleIds(int ...$id): IDataResponse;
 }

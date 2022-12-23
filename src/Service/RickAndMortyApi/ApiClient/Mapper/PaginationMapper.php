@@ -9,12 +9,12 @@ use App\Service\RickAndMortyApi\ApiClient\Dto\Pagination;
 use App\Service\RickAndMortyApi\ApiClient\Transformer\UrlToPageNumberTransformer;
 
 /**
- * @extends BasicDataMapper<Pagination, array<string, mixed>>
+ * @extends AbstractDataMapper<Pagination, array<string, mixed>>
  */
 class PaginationMapper extends AbstractDataMapper
 {
     public function __construct(
-        protected UrlToPageNumberTransformer $urlToPageNumberTransformer
+        protected UrlToPageNumberTransformer $urlToPageTransformer
     ) {
     }
 
@@ -27,8 +27,8 @@ class PaginationMapper extends AbstractDataMapper
             [
                 'count' => $entity['count'],
                 'pages' => $entity['pages'],
-                'next' => isset($entity['next']) ? $this->urlToPageNumberTransformer->transform($entity['next']) : null,
-                'prev' => isset($entity['prev']) ? $this->urlToPageNumberTransformer->transform($entity['prev']) : null,
+                'next' => isset($entity['next']) ? $this->urlToPageTransformer->transform($entity['next']) : null,
+                'prev' => isset($entity['prev']) ? $this->urlToPageTransformer->transform($entity['prev']) : null,
             ]
         );
     }

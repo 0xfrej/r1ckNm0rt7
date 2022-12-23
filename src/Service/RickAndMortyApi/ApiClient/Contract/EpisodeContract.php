@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service\RickAndMortyApi\ApiClient\Contract;
 
-use App\Infrastructure\ApiClient\Filter\FilterCollection;
-use App\Infrastructure\ApiClient\Response\IDataResponse;
+use App\Infrastructure\ApiClient\Filter\IFilterCollection;
 use App\Infrastructure\ApiClient\Response\IPaginatedResponse;
-use App\Infrastructure\ApiClient\Response\IResponse;
 use App\Infrastructure\Dto\Episode;
 
 interface EpisodeContract
@@ -21,9 +19,9 @@ interface EpisodeContract
     /**
      * Get episode list
      *
-     * @psalm-return IResponse|IDataResponse<array<Episode>>|IPaginatedResponse<Episode>
+     * @psalm-return IPaginatedResponse<Episode>
      * @throws \App\Infrastructure\ApiClient\Exception\ApiClientException
-     * @throws
+     * @throws \App\Service\RickAndMortyApi\ApiClient\Exception\EpisodeNotFoundException
      */
-    public function getList(?FilterCollection $filters): IResponse|IDataResponse|IPaginatedResponse;
+    public function getList(?IFilterCollection $filters): IPaginatedResponse;
 }

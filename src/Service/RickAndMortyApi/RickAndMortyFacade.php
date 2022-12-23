@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service\RickAndMortyApi;
 
 use App\Infrastructure\ApiClient\Filter\FilterCollection;
+use App\Infrastructure\ApiClient\Filter\IFilterCollection;
 use App\Infrastructure\Dto\Character;
 use App\Service\RickAndMortyApi\ApiClient\Contract\CharacterContract;
 use App\Service\RickAndMortyApi\ApiClient\Contract\EpisodeContract;
@@ -145,7 +146,7 @@ class RickAndMortyFacade implements IRickAndMortyFacade
         return [];
     }
 
-    protected function createEpisodeFilter(string $nameOrCode): FilterCollection
+    protected function createEpisodeFilter(string $nameOrCode): IFilterCollection
     {
         $filters = FilterCollection::make();
 

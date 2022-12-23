@@ -8,11 +8,9 @@ use App\Infrastructure\ApiClient\AdapterInterface;
 use App\Infrastructure\ApiClient\Exception\ApiClientException;
 use App\Infrastructure\ApiClient\Exception\MappingException;
 use App\Infrastructure\ApiClient\Exception\TransformationException;
-use App\Infrastructure\ApiClient\Filter\FilterCollection;
+use App\Infrastructure\ApiClient\Filter\IFilterCollection;
 use App\Infrastructure\ApiClient\Request\IRequestFactory;
-use App\Infrastructure\ApiClient\Response\IDataResponse;
 use App\Infrastructure\ApiClient\Response\IPaginatedResponse;
-use App\Infrastructure\ApiClient\Response\IResponse;
 use App\Infrastructure\ApiClient\Response\PaginatedResponse;
 use App\Infrastructure\ApiClient\Util\ResponseUtil;
 use App\Infrastructure\ApiClient\Util\UriUtil;
@@ -34,7 +32,7 @@ class Location extends AbstractContractImplementor implements LocationContract
     /**
      * @inheritDoc
      */
-    public function getList(?FilterCollection $filters): IResponse|IDataResponse|IPaginatedResponse
+    public function getList(?IFilterCollection $filters): IPaginatedResponse
     {
         $request = $this->requestFactory->createGetRequest(self::BASE_PATH);
 

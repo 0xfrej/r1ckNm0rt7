@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace App\Infrastructure\ApiClient\Response;
 
 /**
- * @template T
- * @extends IDataResponse<T>
+ * @template T of object|array<object>
+ * @implements IDataResponse<T>
  */
 class DataResponse extends Response implements IDataResponse
 {
+    /**
+     * @psalm-param T $data
+     */
     public function __construct(
         bool $isError,
         int $httpCode,
@@ -21,7 +24,7 @@ class DataResponse extends Response implements IDataResponse
     /**
      * @inheritDoc
      */
-    public function getResponseData(): object|array
+    public function getResponseData(): mixed
     {
         return $this->data;
     }

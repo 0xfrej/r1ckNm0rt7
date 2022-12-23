@@ -7,9 +7,10 @@ namespace App\Infrastructure\ApiClient\DataTransformer;
 /**
  * Used to transform data from A to B
  *
- * @template A
- * @template B
- * @extends IDataTransformer<A, B>
+ * @template A of mixed
+ * @template B of mixed
+ * @template C of mixed
+ * @implements IDataTransformer<A, B, C>
  */
 abstract class AbstractTransformer implements IDataTransformer
 {

@@ -30,6 +30,9 @@ class Location
     #[Groups('detail')]
     protected DateTimeInterface $created;
 
+    /**
+     * @param array<int>              $residents
+     */
     public function __construct(
         int $id,
         string $name,
@@ -81,7 +84,7 @@ class Location
     /**
      * Get the list of character who have been last seen in the location.
      *
-     * @return array
+     * @return array<int>
      */
     public function getResidents(): array
     {

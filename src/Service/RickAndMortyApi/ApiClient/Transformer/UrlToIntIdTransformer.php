@@ -8,7 +8,7 @@ use App\Infrastructure\ApiClient\DataTransformer\AbstractTransformer;
 use App\Infrastructure\ApiClient\Exception\TransformationException;
 
 /**
- * @extends AbstractTransformer<string, int>
+ * @extends AbstractTransformer<string, int|null, int>
  */
 class UrlToIntIdTransformer extends AbstractTransformer
 {
@@ -17,8 +17,11 @@ class UrlToIntIdTransformer extends AbstractTransformer
     /**
      * @inheritdoc
      */
-    public function transform(string $val): ?int
+    public function transform(mixed $val): ?int
     {
+        if (! is_string($val)) {
+            throw new TransformationException(sprintf('Expected string, %s given', gettype($val)));
+        }
         if (empty($val)) {
             return null;
         }
@@ -34,5 +37,15 @@ class UrlToIntIdTransformer extends AbstractTransformer
                 $val
             )
         );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function transformList(array $valList): array
+    {
+        /** @psalm-var array<int|null> $result */
+        $result = parent::transformList($valList);
+        return array_filter($result, static fn($val) => !is_null($val));
     }
 }

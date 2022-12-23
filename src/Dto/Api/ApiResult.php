@@ -42,7 +42,7 @@ class ApiResult
     /**
      * @param object|array<object>|null  $data
      * @param array<ApiError>|null       $errors
-     * @return static
+     * @return \App\Dto\Api\ApiResult
      */
     public static function make(
         object|array|null $data = null,
@@ -68,8 +68,6 @@ class ApiResult
         return $this->errors;
     }
 
-    /**
-     */
     public function getLinks(): ?ApiLinks
     {
         return $this->links;

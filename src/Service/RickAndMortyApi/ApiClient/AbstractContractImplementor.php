@@ -23,7 +23,7 @@ abstract class AbstractContractImplementor
     }
 
     /**
-     * @return array
+     * @return array<string|int,mixed>
      * @throws \App\Infrastructure\ApiClient\Exception\ApiClientException
      */
     protected function deserializeResponse(StreamInterface $body): array

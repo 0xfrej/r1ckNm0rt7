@@ -30,6 +30,9 @@ class Episode
     #[Groups('detail')]
     protected DateTimeInterface $created;
 
+    /**
+     * @param array<int>         $characters
+     */
     public function __construct(
         int $id,
         string $name,
@@ -81,7 +84,7 @@ class Episode
     /**
      * Get the list of characters who have been seen in the episode.
      *
-     * @return array
+     * @return array<int>
      */
     public function getCharacters(): array
     {
@@ -93,6 +96,6 @@ class Episode
      */
     public function getCreated(): DateTimeInterface
     {
-        return $this->DateTimeInterface;
+        return $this->created;
     }
 }

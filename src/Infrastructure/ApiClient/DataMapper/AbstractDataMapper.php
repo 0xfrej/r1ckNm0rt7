@@ -9,7 +9,7 @@ namespace App\Infrastructure\ApiClient\DataMapper;
  *
  * @template T of object
  * @template A of array
- * @extends IDataMapper<T, A>
+ * @implements IDataMapper<T, A>
  */
 abstract class AbstractDataMapper implements IDataMapper
 {

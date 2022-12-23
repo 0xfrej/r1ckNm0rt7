@@ -45,6 +45,9 @@ class Character
     #[Groups('detail')]
     protected DateTimeInterface $created;
 
+    /**
+     * @param array<int>                                $episodeList
+     */
     public function __construct(
         int $id,
         string $name,
@@ -122,8 +125,6 @@ class Character
 
     /**
      * Get the LocationReference of character's origin.
-     *
-     * @return \App\Service\RickAndMortyApi\ApiClient\Dto\LocationReference
      */
     public function getOrigin(): LocationReference
     {
@@ -132,8 +133,6 @@ class Character
 
     /**
      * Get the LocationReference of character's last known position
-     *
-     * @return \App\Service\RickAndMortyApi\ApiClient\Dto\LocationReference
      */
     public function getLocation(): LocationReference
     {
@@ -154,7 +153,7 @@ class Character
     /**
      * Get the list of episodes in which this character appeared.
      *
-     * @return array
+     * @return array<int>
      */
     public function getEpisodeList(): array
     {

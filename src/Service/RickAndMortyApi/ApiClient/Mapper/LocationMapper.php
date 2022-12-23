@@ -10,14 +10,13 @@ use App\Infrastructure\Dto\Location;
 use App\Service\RickAndMortyApi\ApiClient\Transformer\UrlToIntIdTransformer;
 
 /**
- * @extends BasicDataMapper<Location, array<string, mixed>>
+ * @extends AbstractDataMapper<Location, array<string, mixed>>
  */
 class LocationMapper extends AbstractDataMapper
 {
     public function __construct(
-        protected LocationReferenceMapper $locationReferenceMapper,
         protected UrlToIntIdTransformer $urlToIntTransformer,
-        protected StringDateTimeTransformer $stringDateTimeTransformer
+        protected StringDateTimeTransformer $strDateTransformer
     ) {
     }
 
@@ -32,7 +31,7 @@ class LocationMapper extends AbstractDataMapper
             $entity['type'],
             $entity['dimension'],
             $this->urlToIntTransformer->transformList($entity['residents']),
-            $this->stringDateTimeTransformer->transform($entity['created'])
+            $this->strDateTransformer->transform($entity['created'])
         );
     }
 }

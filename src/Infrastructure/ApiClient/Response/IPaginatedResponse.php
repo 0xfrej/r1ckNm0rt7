@@ -6,7 +6,11 @@ namespace App\Infrastructure\ApiClient\Response;
 
 use App\Infrastructure\ApiClient\Pagination\IPagination;
 
-interface IPaginatedResponse
+/**
+ * @template T of object
+ * @extends IDataResponse<array<T>>
+ */
+interface IPaginatedResponse extends IDataResponse
 {
     /**
      * Gets pagination data from response

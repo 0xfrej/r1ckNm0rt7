@@ -10,14 +10,13 @@ use App\Infrastructure\Dto\Episode;
 use App\Service\RickAndMortyApi\ApiClient\Transformer\UrlToIntIdTransformer;
 
 /**
- * @extends BasicDataMapper<Episode, array<string, mixed>>
+ * @extends AbstractDataMapper<Episode, array<string,mixed>>
  */
 class EpisodeMapper extends AbstractDataMapper
 {
     public function __construct(
-        protected LocationReferenceMapper $locationReferenceMapper,
         protected UrlToIntIdTransformer $urlToIntTransformer,
-        protected StringDateTimeTransformer $stringDateTimeTransformer
+        protected StringDateTimeTransformer $strDateTransformer
     ) {
     }
 
@@ -29,10 +28,10 @@ class EpisodeMapper extends AbstractDataMapper
         return new Episode(
             $entity['id'],
             $entity['name'],
-            $this->stringDateTimeTransformer->transform($entity['air_date']),
+            $this->strDateTransformer->transform($entity['air_date']),
             $entity['episode'],
             $this->urlToIntTransformer->transformList($entity['characters']),
-            $this->stringDateTimeTransformer->transform($entity['created']),
+            $this->strDateTransformer->transform($entity['created']),
         );
     }
 }

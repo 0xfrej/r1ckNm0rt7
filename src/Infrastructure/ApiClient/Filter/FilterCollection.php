@@ -53,8 +53,8 @@ class FilterCollection implements IFilterCollection
     /**
      * Create new instance of filter collection
      *
-     * @param array $initialCollection
-     * @return static
+     * @param array<string, string> $initialCollection
+     * @return \App\Infrastructure\ApiClient\Filter\FilterCollection
      */
     public static function make(array $initialCollection = []): self
     {

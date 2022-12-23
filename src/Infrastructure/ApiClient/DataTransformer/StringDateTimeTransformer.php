@@ -9,14 +9,14 @@ use DateTimeInterface;
 use DateTime;
 
 /**
- * @extends AbstractTransformer<string, DateTimeInterface>
+ * @extends AbstractTransformer<string, DateTimeInterface, DateTimeInterface>
  */
 class StringDateTimeTransformer extends AbstractTransformer
 {
     /**
      * @inheritDoc
      */
-    public function transform(string $val): DateTimeInterface
+    public function transform(mixed $val): DateTimeInterface
     {
         try {
             return new DateTime($val);

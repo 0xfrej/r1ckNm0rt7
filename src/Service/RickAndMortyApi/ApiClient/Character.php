@@ -12,7 +12,6 @@ use App\Infrastructure\ApiClient\Exception\TransformationException;
 use App\Infrastructure\ApiClient\Request\IRequestFactory;
 use App\Infrastructure\ApiClient\Response\DataResponse;
 use App\Infrastructure\ApiClient\Response\IDataResponse;
-use App\Infrastructure\ApiClient\Response\IResponse;
 use App\Infrastructure\ApiClient\Util\ResponseUtil;
 use App\Service\RickAndMortyApi\ApiClient\Contract\CharacterContract;
 use App\Service\RickAndMortyApi\ApiClient\Exception\CharacterNotFoundException;
@@ -31,7 +30,7 @@ class Character extends AbstractContractImplementor implements CharacterContract
     /**
      * @inheritDoc
      */
-    public function getById(int $id): IResponse|IDataResponse
+    public function getById(int $id): IDataResponse
     {
         $request = $this->requestFactory->createGetRequest(
             $this->joinPaths(self::BASE_PATH, (string) $id)
@@ -44,6 +43,7 @@ class Character extends AbstractContractImplementor implements CharacterContract
             );
         }
 
+        /** @var array<string,string> $result */
         $result = $this->deserializeResponse($response->getBody());
         try {
             return new DataResponse(
@@ -59,13 +59,14 @@ class Character extends AbstractContractImplementor implements CharacterContract
     /**
      * @inheritDoc
      */
-    public function getByMultipleIds(int ...$id): IResponse|IDataResponse
+    public function getByMultipleIds(int ...$id): IDataResponse
     {
         $request = $this->requestFactory->createGetRequest(
             $this->joinPaths(self::BASE_PATH, implode(',', $id))
         );
         $response = $this->adapter->call($request);
 
+        /** @var array<string,string> $result */
         $result = $this->deserializeResponse($response->getBody());
         try {
             return new DataResponse(

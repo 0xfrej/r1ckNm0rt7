@@ -9,7 +9,7 @@ use App\Infrastructure\Dto\LocationReference;
 use App\Service\RickAndMortyApi\ApiClient\Transformer\UrlToIntIdTransformer;
 
 /**
- * @extends BasicDataMapper<LocationReference, array<string, mixed>>
+ * @extends AbstractDataMapper<LocationReference, array<string, mixed>>
  */
 class LocationReferenceMapper extends AbstractDataMapper
 {

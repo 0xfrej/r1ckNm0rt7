@@ -10,14 +10,14 @@ use App\Infrastructure\Dto\Character;
 use App\Service\RickAndMortyApi\ApiClient\Transformer\UrlToIntIdTransformer;
 
 /**
- * @extends BasicDataMapper<Character, array<string, mixed>>
+ * @extends AbstractDataMapper<Character, array<string, mixed>>
  */
 class CharacterMapper extends AbstractDataMapper
 {
     public function __construct(
-        protected LocationReferenceMapper $locationReferenceMapper,
+        protected LocationReferenceMapper $locationRefMapper,
         protected UrlToIntIdTransformer $urlToIntTransformer,
-        protected StringDateTimeTransformer $stringDateTimeTransformer
+        protected StringDateTimeTransformer $strDateTransformer
     ) {
     }
 
@@ -33,11 +33,11 @@ class CharacterMapper extends AbstractDataMapper
             $entity['species'],
             $entity['type'],
             $entity['gender'],
-            $this->locationReferenceMapper->mapOne($entity['origin']),
-            $this->locationReferenceMapper->mapOne($entity['location']),
+            $this->locationRefMapper->mapOne($entity['origin']),
+            $this->locationRefMapper->mapOne($entity['location']),
             $entity['image'],
             $this->urlToIntTransformer->transformList($entity['episode']),
-            $this->stringDateTimeTransformer->transform($entity['created']),
+            $this->strDateTransformer->transform($entity['created']),
         );
     }
 }

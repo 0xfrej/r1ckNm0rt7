@@ -7,6 +7,8 @@ namespace App\Service\RickAndMortyApi\ApiClient\Mapper;
 use App\Infrastructure\ApiClient\DataMapper\AbstractDataMapper;
 use App\Infrastructure\ApiClient\DataTransformer\StringDateTimeTransformer;
 use App\Infrastructure\Dto\Character;
+use App\Infrastructure\Enum\Gender;
+use App\Infrastructure\Enum\LifeStatus;
 use App\Service\RickAndMortyApi\ApiClient\Transformer\UrlToIntIdTransformer;
 
 /**
@@ -29,10 +31,10 @@ class CharacterMapper extends AbstractDataMapper
         return new Character(
             $entity['id'],
             $entity['name'],
-            $entity['status'],
+            LifeStatus::from($entity['status']),
             $entity['species'],
             $entity['type'],
-            $entity['gender'],
+            Gender::from($entity['gender']),
             $this->locationRefMapper->mapOne($entity['origin']),
             $this->locationRefMapper->mapOne($entity['location']),
             $entity['image'],

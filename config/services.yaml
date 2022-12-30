@@ -33,6 +33,12 @@ services:
         tags:
             - { name: serializer.normalizer, priority: -10 }
 
+    serializer.normalizer.backed_enum:
+        class: Symfony\Component\Serializer\Normalizer\BackedEnumNormalizer
+        public: false
+        tags:
+            - { name: serializer.normalizer, priority: -5 }
+
     Symfony\Component\Serializer\Normalizer\DateTimeNormalizer:
         arguments:
             $defaultContext:
@@ -40,12 +46,14 @@ services:
 
     App\Service\RickAndMortyApi\IRickAndMortyFacade: '@App\Service\RickAndMortyApi\RickAndMortyFacade'
 
+    rick_and_morty.http_client:
+        class: GuzzleHttp\Client
     rick_and_morty.adapter:
-        class: App\Infrastructure\ApiClient\AdapterInterface
-        factory: ['@App\Factory\RickAndMortyApiFactory', 'createAdapter']
+        class: App\Infrastructure\ApiClient\GuzzleAdapter
+        bind:
+            GuzzleHttp\ClientInterface: '@rick_and_morty.http_client'
     rick_and_morty.request_factory:
-        class: App\Infrastructure\ApiClient\Request\IRequestFactory
-        factory: [ '@App\Factory\RickAndMortyApiFactory', 'createRequestFactory' ]
+        class: App\Infrastructure\ApiClient\Request\GuzzleRequestFactory
         arguments: [ '%env(RICK_AND_MORTY_BASE_URL)%' ]
 
     App\Service\RickAndMortyApi\ApiClient\Contract\CharacterContract:

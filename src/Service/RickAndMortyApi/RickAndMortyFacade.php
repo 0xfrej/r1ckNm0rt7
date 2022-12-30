@@ -43,7 +43,6 @@ class RickAndMortyFacade implements IRickAndMortyFacade
 
         $characterIdList = [];
         do {
-            $shouldExit = false;
             $response = $this->location->getList($filters);
 
             /** @var \App\Infrastructure\Dto\Location $firstLocation */
@@ -61,14 +60,9 @@ class RickAndMortyFacade implements IRickAndMortyFacade
             foreach ($response->getResponseData() as $location) {
                 // Stop scanning more entities beacause we are looking only for exact matches
                 if ($location->getDimension() !== $dimensionName) {
-                    $shouldExit = true;
-                    break;
+                    break 2;
                 }
                 $characterIdList = array_merge($characterIdList, $location->getResidents());
-            }
-
-            if ($shouldExit) {
-                break;
             }
             $filters->set(LocationContract::FILTER_PAGE, (string) $response->getPagination()->next());
         } while ($response->getPagination()->hasNext());

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Enum;
 
-class LifeStatus
+enum LifeStatus : string
 {
-    public const ALIVE = 'Alive';
-    public const DEAD = 'Dead';
-    public const UNKNOWN = 'Unknown';
+    case Alive = 'Alive';
+    case Dead = 'Dead';
+    case Unknown = 'unknown';
 }

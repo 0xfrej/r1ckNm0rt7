@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Dto;
 
+use App\Infrastructure\Enum\Gender;
+use App\Infrastructure\Enum\LifeStatus;
 use DateTimeInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -16,7 +18,7 @@ class Character
     protected string $name;
 
     #[Groups('detail')]
-    protected string $status;
+    protected LifeStatus $status;
 
     #[Groups('detail')]
     protected string $species;
@@ -25,7 +27,7 @@ class Character
     protected string $type;
 
     #[Groups('detail')]
-    protected string $gender;
+    protected Gender $gender;
 
     #[Groups('detail')]
     protected LocationReference $origin;
@@ -51,10 +53,10 @@ class Character
     public function __construct(
         int $id,
         string $name,
-        string $status,
+        LifeStatus $status,
         string $species,
         string $type,
-        string $gender,
+        Gender $gender,
         LocationReference $origin,
         LocationReference $location,
         string $avatarUrl,
@@ -92,9 +94,11 @@ class Character
     }
 
     /**
-     * Get the status of the character ('Alive', 'Dead' or 'unknown').
+     * Get the status of the character.
+     *
+     * @see LifeStatus
      */
-    public function getStatus(): string
+    public function getStatus(): LifeStatus
     {
         return $this->status;
     }
@@ -116,9 +120,11 @@ class Character
     }
 
     /**
-     * Get the gender of the character ('Female', 'Male', 'Genderless' or 'unknown').
+     * Get the gender of the character
+     *
+     * @see Gender
      */
-    public function getGender(): string
+    public function getGender(): Gender
     {
         return $this->gender;
     }
